@@ -1,0 +1,31 @@
+[alias]
+	co = checkout
+	br = branch
+	ci = commit
+	st = status
+[pull]
+	rebase = true
+[init]
+	defaultBranch = main
+[user]
+	name = Ryan Burnette
+	email = ryan.burnette@gmail.com
+	signingkey = /home/ryan/.ssh/id_ed25519
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[url "ssh://git@example.com/"]
+	insteadOf = https://example.com/
+[url "ssh://git@github.com/"]
+	insteadOf = https://github.com/
+[push]
+	autoSetupRemote = true
+[rebase]
+	autoStash = true
+[commit]
+	gpgsign = true
+[gpg]
+	format = ssh
