@@ -18,7 +18,18 @@ To unstow:
 stow -D .
 ```
 
+## Platform-Specific Configs
+
+Ghostty is macOS-only. On Linux, skip it:
+
+```bash
+stow git nvim
+```
+
 ## Contents
 
-- `alacritty` - Alacritty terminal config
-- `nvim` - LazyVim Neovim configuration
+| Package | Description |
+|---------|-------------|
+| `git` | Git configuration |
+| `ghostty-darwin` | Ghostty terminal (macOS) |
+| `nvim` | LazyVim Neovim configuration |
