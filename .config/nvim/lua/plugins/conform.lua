@@ -8,5 +8,10 @@ return {
       css = { "prettier" },
       markdown = { "prettier" },
     }
+    opts.formatters.prettier = {
+      condition = function(_, ctx)
+        return vim.fn.filereadable(vim.fs.dirname(ctx.filename) .. "/.prettierrc") > 0
+      end,
+    }
   end,
 }
