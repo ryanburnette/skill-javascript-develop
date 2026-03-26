@@ -4,26 +4,19 @@ Managed with [GNU Stow](https://www.gnu.org/software/stow/).
 
 ## Usage
 
-Clone and stow:
+Clone and stow packages:
 
 ```bash
 git clone https://github.com/ryanburnette/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
-stow .
+stow git nvim ghostty-darwin  # macOS
+stow git nvim                  # Linux
 ```
 
 To unstow:
 
 ```bash
-stow -D .
-```
-
-## Platform-Specific Configs
-
-Ghostty is macOS-only. On Linux, skip it:
-
-```bash
-stow git nvim
+stow -D git nvim ghostty-darwin
 ```
 
 ## Contents
