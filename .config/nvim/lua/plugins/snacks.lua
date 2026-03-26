@@ -4,5 +4,11 @@ return {
     scratch = { enabled = false },
     terminal = { enabled = false },
     scroll = { enabled = false },
+    picker = {
+      enabled = true,
+      sources = {
+        files = { hidden = true },
+      },
+    },
   },
 }
