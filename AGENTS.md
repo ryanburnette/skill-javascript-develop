@@ -49,3 +49,15 @@ Each package is a directory at the repo root containing the stow target structur
 ```
 
 Stow creates symlinks in `$HOME` pointing back to the repo.
+
+### Tracking Changes
+
+Since stow uses symlinks, edits to config files (e.g., `~/.config/nvim`) modify files directly in this repo. Changes are live immediately but must be manually committed and pushed to track them:
+
+```bash
+cd ~/.dotfiles
+git status
+git add <package>
+git commit -m "config: update <package>"
+git push
+```

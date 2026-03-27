@@ -19,6 +19,18 @@ To unstow:
 stow -D git nvim ghostty-darwin
 ```
 
+## Tracking Changes
+
+Stow uses symlinks, so edits to `~/.config/<package>` modify files directly in this repo. Track changes:
+
+```bash
+cd ~/.dotfiles
+git status
+git add <package>
+git commit -m "config: update <package>"
+git push
+```
+
 ## Contents
 
 | Package | Description |
