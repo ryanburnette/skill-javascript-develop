@@ -1,5 +1,9 @@
 # Dotfiles Agent Configuration
 
+## Project Rules
+
+- **bypass_private_pr: always** — this project allows direct commits to main without PRs.
+
 ## Stow Workflow
 
 This repo uses [GNU Stow](https://www.gnu.org/software/stow/) to manage dotfiles as symlink farms.

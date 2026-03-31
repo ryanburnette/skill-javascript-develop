@@ -9,7 +9,7 @@ Clone and stow packages:
 ```bash
 git clone https://github.com/ryanburnette/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
-stow git nvim ghostty-darwin btop starship  # macOS
+stow git nvim ghostty-darwin btop starship macos  # macOS
 stow git nvim btop starship                 # Linux
 ```
 
@@ -40,3 +40,4 @@ git push
 | `nvim` | LazyVim Neovim configuration |
 | `btop` | System monitor configuration |
 | `starship` | Starship prompt configuration |
+| `macos` | macOS system setup script |
