@@ -1,0 +1,5 @@
+#!/bin/sh
+set -eu
+
+defaults write NSGlobalDomain KeyRepeat -int 8
+defaults write NSGlobalDomain InitialKeyRepeat -int 25
