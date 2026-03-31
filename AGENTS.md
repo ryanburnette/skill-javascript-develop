@@ -3,6 +3,7 @@
 ## Project Rules
 
 - **bypass_private_pr: always** — this project allows direct commits to main without PRs.
+- **Install tools with webi first, then brew** — use `webi <tool>` if available, fall back to `brew install <tool>` only if webi doesn't have it.
 
 ## Stow Workflow
 
