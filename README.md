@@ -9,8 +9,8 @@ Clone and stow packages:
 ```bash
 git clone https://github.com/ryanburnette/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
-stow git nvim ghostty-darwin btop starship lsd macos  # macOS
-stow git nvim btop starship lsd                 # Linux
+stow git nvim ghostty-darwin btop starship lsd ssh macos  # macOS
+stow git nvim btop starship lsd ssh                 # Linux
 ```
 
 To unstow:
@@ -42,3 +42,4 @@ git push
 | `starship` | Starship prompt configuration |
 | `macos` | macOS system setup script |
 | `lsd` | LSD (ls replacement) configuration |
+| `ssh` | SSH config.d host configurations |
