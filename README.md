@@ -43,3 +43,13 @@ git push
 | `macos` | macOS system setup script |
 | `lsd` | LSD (ls replacement) configuration |
 | `ssh` | SSH config.d host configurations |
+
+## SSH Setup
+
+After stowing the `ssh` package, ensure `~/.ssh/config` includes:
+
+```
+Include ~/.ssh/config.d/**/*.sshconfig
+```
+
+This file is system-specific (may contain `Host *` blocks with local paths like the 1Password SSH agent) and is not managed by stow.
