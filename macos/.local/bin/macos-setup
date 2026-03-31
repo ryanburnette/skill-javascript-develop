@@ -1,5 +1,7 @@
 #!/bin/sh
 set -eu
 
+# Key repeat rate (lower = faster)
 defaults write NSGlobalDomain KeyRepeat -int 8
+# Initial delay before repeat starts (lower = faster)
 defaults write NSGlobalDomain InitialKeyRepeat -int 25
