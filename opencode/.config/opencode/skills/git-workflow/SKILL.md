@@ -96,6 +96,12 @@ EOF
 )"
 ```
 
+## Force Pushes — Require User Confirmation
+
+**Always ask before running any force push, including `--force-with-lease` and `--force-with-lease`.**
+
+Force pushes are destructive. Even with safeguards, they can cause data loss. Get explicit user approval first.
+
 ## History: Always Rebase or Squash
 
 Never merge commits. Every branch must rebase onto `main` before merging.
@@ -108,7 +114,7 @@ git rebase -i main
 
 # Or just rebase to keep all commits in order
 git rebase main
-git push --force-with-lease origin feature/my-thing
+git push --force-with-lease origin feature/my-thing  # requires user confirmation
 ```
 
 ## Merging into Main — Only After Explicit Approval
