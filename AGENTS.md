@@ -1,9 +1,10 @@
 # Dotfiles Agent Configuration
 
-## Project Rules
+## Before Actions
 
-- **bypass_private_pr: always** — this project allows direct commits to main without PRs.
-- **Use skill:git-workflow for git operations** — always invoke the git-workflow skill for commits, PRs, branching, and merging.
+**Before git operations:** Use `skill:git-workflow`. This repo has `bypass_private_pr: always` — direct commits to main are allowed.
+
+**Before editing configs:** If changes are made to configs not managed by this repo, offer to add them as stow packages.
 
 ## Stow Workflow
 
