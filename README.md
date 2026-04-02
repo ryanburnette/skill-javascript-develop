@@ -9,8 +9,8 @@ Clone and stow packages:
 ```bash
 git clone https://github.com/ryanburnette/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
-stow git nvim ghostty-darwin btop starship lsd ssh macos  # macOS
-stow git nvim btop starship lsd ssh                 # Linux
+stow git nvim ghostty-darwin btop starship lsd ssh macos opencode  # macOS
+stow git nvim btop starship lsd ssh opencode                 # Linux
 ```
 
 To unstow:
@@ -51,7 +51,7 @@ Run `dotstatus` periodically to catch any config changes made on this machine or
 | `macos` | macOS system setup script |
 | `lsd` | LSD (ls replacement) configuration |
 | `ssh` | SSH config.d host configurations |
-| `opencode` | Reference-only (not stowed) |
+| `opencode` | OpenCode configuration with skills |
 
 ## SSH Setup
 
@@ -62,9 +62,3 @@ Include ~/.ssh/config.d/**/*.sshconfig
 ```
 
 This file is system-specific (may contain `Host *` blocks with local paths like the 1Password SSH agent) and is not managed by stow.
-
-## Reference-Only Configs
-
-Some configs are stored here for reference but are not managed by stow:
-
-- `opencode/` - OpenCode configuration (manually copy/symlink as needed)
