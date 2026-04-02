@@ -21,7 +21,7 @@ stow -D git nvim ghostty-darwin
 
 ## Tracking Changes
 
-Stow uses symlinks, so edits to `~/.config/<package>` modify files directly in this repo. Track changes:
+Stow uses symlinks, so edits to `~/.config/<package>` modify files directly in this repo. Periodically check for uncommitted changes:
 
 ```bash
 cd ~/.dotfiles
@@ -30,6 +30,14 @@ git add <package>
 git commit -m "config: update <package>"
 git push
 ```
+
+A helper alias:
+
+```bash
+alias dotstatus='cd ~/.dotfiles && git status --short'
+```
+
+Run `dotstatus` periodically to catch any config changes made on this machine or by automated processes.
 
 ## Contents
 

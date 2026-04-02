@@ -66,3 +66,5 @@ git add <package>
 git commit -m "config: update <package>"
 git push
 ```
+
+**Important:** When working on this repo, periodically check `git status` for uncommitted changes made on other machines or by automated processes. Verify with the user before committing and pushing any discovered changes.
