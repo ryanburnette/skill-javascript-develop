@@ -4,7 +4,6 @@
 
 - **bypass_private_pr: always** — this project allows direct commits to main without PRs.
 - **Use skill:git-workflow for git operations** — always invoke the git-workflow skill for commits, PRs, branching, and merging.
-- **Install tools with webi first, then brew** — use `webi <tool>` if available, fall back to `brew install <tool>` only if webi doesn't have it.
 
 ## Stow Workflow
 
