@@ -1,5 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
+  "model": "ollama/glm-5:cloud",
   "permission": {
     "*": "allow",
     "external_directory": "ask"
@@ -14,6 +15,14 @@
             "output": 131072
           },
           "name": "glm-5:cloud"
+        },
+        "minimax-m2.7:cloud": {
+          "_launch": true,
+          "limit": {
+            "context": 204800,
+            "output": 128000
+          },
+          "name": "minimax-m2.7:cloud"
         }
       },
       "name": "Ollama",
