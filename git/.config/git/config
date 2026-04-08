@@ -27,5 +27,7 @@
 	autoStash = true
 [commit]
 	gpgsign = true
+[core]
+	excludesfile = ~/.config/git/ignore
 [gpg]
 	format = ssh
