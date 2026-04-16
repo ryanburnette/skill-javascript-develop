@@ -60,6 +60,8 @@ EOF
 
 Commit often. Each commit is a safe checkpoint.
 
+**Note:** The skill stages and commits. The user handles `git push` manually.
+
 ## Feature Branches and WIP PRs
 
 ```sh
@@ -124,3 +126,32 @@ git push --force-with-lease origin feature/my-thing  # requires user confirmatio
 **For private repos:** Direct commits to main are acceptable. Commit normally after completing work.
 
 **Never self-merge on public repos. Never use `--admin` to bypass branch protection.**
+
+## Working with GitHub Issues
+
+**Always read the entire issue thread before starting work.**
+
+```sh
+gh issue view <number> --comments
+```
+
+Or use the API for full thread:
+
+```sh
+gh api repos/<owner>/<repo>/issues/<number>/comments --jq '.[] | "=== \(.user.login) on \(.created_at) ===\n\(.body)\n"'
+```
+
+Key reminders:
+- Comments may contain clarifications or scope changes not in the original issue
+- Read ALL comments before making any code changes
+- Ask questions if the requirements are unclear
+
+**Close issues in commit messages:**
+
+```sh
+git commit -m "fix: description of fix
+
+Closes #6"
+```
+
+This automatically closes the issue when pushed to main.

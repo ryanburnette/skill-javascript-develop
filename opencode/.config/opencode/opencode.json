@@ -23,6 +23,14 @@
             "output": 128000
           },
           "name": "minimax-m2.7:cloud"
+        },
+        "qwen3.5:cloud": {
+          "_launch": true,
+          "limit": {
+            "context": 262144,
+            "output": 32768
+          },
+          "name": "qwen3.5:cloud"
         }
       },
       "name": "Ollama",
