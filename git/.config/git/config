@@ -22,7 +22,7 @@
 [rebase]
 	autoStash = true
 [commit]
-	gpgsign = true
+	gpgsign = false
 [core]
 	excludesfile = ~/.config/git/ignore
 [gpg]
