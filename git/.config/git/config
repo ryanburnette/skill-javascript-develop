@@ -11,12 +11,6 @@
 	name = Ryan Burnette
 	email = ryan.burnette@gmail.com
 	signingkey = ~/.ssh/id_ed25519
-[credential "https://github.com"]
-	helper = 
-	helper = !/usr/bin/gh auth git-credential
-[credential "https://gist.github.com"]
-	helper = 
-	helper = !/usr/bin/gh auth git-credential
 [push]
 	autoSetupRemote = true
 [rebase]

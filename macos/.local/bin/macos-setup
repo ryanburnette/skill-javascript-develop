@@ -4,6 +4,6 @@ set -eu
 # Key repeat rate (lower = faster)
 defaults write NSGlobalDomain KeyRepeat -int 3
 # Initial delay before repeat starts (lower = faster)
-defaults write NSGlobalDomain InitialKeyRepeat -int 20
+defaults write NSGlobalDomain InitialKeyRepeat -int 16
 
 echo "Note: You must restart your system for some settings to take effect."
