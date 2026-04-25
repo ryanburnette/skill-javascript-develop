@@ -4,42 +4,42 @@
 
 **Before git operations:** Use `skill:git-workflow`. This repo has `bypass_private_pr: always` — direct commits to main are allowed.
 
-**Before editing configs:** If changes are made to configs not managed by this repo, offer to add them as stow packages.
+**Before editing configs:** If changes are made to configs not managed by this repo, offer to add them as symlinks.
 
-## Stow Workflow
+## Symlink Workflow
 
-This repo uses [GNU Stow](https://www.gnu.org/software/stow/) to manage dotfiles as symlink farms.
+This repo uses direct symlinks to manage dotfiles. No stow or external tools needed.
 
 ### Adding a New Config
 
 To add a new package (e.g., `foo` config at `~/.config/foo`):
 
-1. Create stow directory structure:
+1. Create directory structure in dotfiles:
    ```bash
    mkdir -p foo/.config/foo
    cp -r ~/.config/foo/* foo/.config/foo/
    ```
 
-2. Backup and stow:
+2. Create symlink (setup.sh handles backups with `.bk` suffix):
    ```bash
    mv ~/.config/foo ~/.config/foo.bk
-   stow foo
+   ln -sf ~/.dotfiles/foo/.config/foo ~/.config/foo
    ```
 
 3. Update README.md:
-   - Add package name to stow commands
-   - Add entry to contents table
+   - Add package to the table
+   - Add symlink command to manual setup section
 
 4. Commit and push:
    ```bash
    git add foo README.md
-   git commit -m "feat: add foo config as stow package"
+   git commit -m "feat: add foo config"
    git push
    ```
 
 ### Directory Structure
 
-Each package is a directory at the repo root containing the stow target structure:
+Each package is a directory at the repo root containing the target structure:
 
 ```
 ~/.dotfiles/
@@ -54,11 +54,9 @@ Each package is a directory at the repo root containing the stow target structur
         └── nvim/
 ```
 
-Stow creates symlinks in `$HOME` pointing back to the repo.
-
 ### Tracking Changes
 
-Since stow uses symlinks, edits to config files (e.g., `~/.config/nvim`) modify files directly in this repo. Changes are live immediately but must be manually committed and pushed to track them:
+Edits to `~/.config/<package>` modify files directly in this repo via symlinks. Changes are live immediately but must be manually committed and pushed:
 
 ```bash
 cd ~/.dotfiles
@@ -68,4 +66,25 @@ git commit -m "config: update <package>"
 git push
 ```
 
-**Important:** When working on this repo, periodically check `git status` for uncommitted changes made on other machines or by automated processes. Verify with the user before committing and pushing any discovered changes.
+**Important:** Periodically check `git status` for uncommitted changes made on other machines or by automated processes.
+
+### Tool Installation Priority
+
+When setting up a new machine, install tools in this order:
+
+1. **git** - webi or system
+2. **gh** - `webi gh` (for git credential helper)
+3. **starship** - `curl -sS https://starship.rs/install.sh | sh`
+4. **lsd** - `webi lsd`
+5. **aliasman** - `webi aliasman`
+6. **neovim** - download from GitHub releases (need full package: bin + lib + share)
+7. **btop** - build from source or `brew install btop`
+8. **ghostty** - download from ghostty.org (macOS)
+
+### Key Lessons Learned
+
+- **neovim**: Don't just copy the binary - needs `lib/` and `share/` directories too. Official tarball structure: `bin/nvim`, `lib/nvim/`, `share/nvim/runtime/`
+- **lazy.nvim**: Requires working HTTPS git URLs. Set credential helper: `git config --global credential.helper "/path/to/gh auth git-credential"`
+- **starship**: Official install script is interactive; manually download tarball from GitHub releases if needed
+- **btop**: No macOS binaries provided; build from source or use brew
+- **stow**: Not worth the complexity - simple `ln -sf` works better for personal dotfiles

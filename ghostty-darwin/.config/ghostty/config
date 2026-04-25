@@ -1,7 +1,5 @@
-font-family = SFMono Nerd Font
-font-size = 16
+font-family = JetBrains Mono
+font-size = 14
 font-thicken = true
-
 term = xterm-256color
-
 theme = /Users/ryan/.config/ghostty/themes/catppuccin-mocha.conf

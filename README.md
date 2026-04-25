@@ -1,27 +1,46 @@
 # Dotfiles
 
-Managed with [GNU Stow](https://www.gnu.org/software/stow/).
+Symlinked directly to `$HOME` using `ln -sf`.
 
-## Usage
+## Setup
 
-Clone and stow packages:
+After cloning, run the setup script:
 
 ```bash
 git clone https://github.com/ryanburnette/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
-stow git nvim ghostty-darwin btop starship lsd ssh macos opencode  # macOS
-stow git nvim btop starship lsd ssh opencode                 # Linux
+./setup.sh
 ```
 
-To unstow:
+## Package List
+
+| Package | Target | Description |
+|---------|--------|-------------|
+| `git` | `~/.config/git` | Git configuration |
+| `ghostty-darwin` | `~/.config/ghostty` | Ghostty terminal (macOS) |
+| `nvim` | `~/.config/nvim` | LazyVim Neovim configuration |
+| `btop` | `~/.config/btop` | System monitor configuration |
+| `starship` | `~/.config/starship.toml` | Starship prompt configuration |
+| `lsd` | `~/.config/lsd` | LSD (ls replacement) configuration |
+| `ssh` | `~/.ssh/config.d` | SSH config.d host configurations |
+| `opencode` | `~/.config/opencode` | OpenCode configuration with skills |
+
+## Manual Setup
+
+If you prefer to set up manually, run these commands from the `~/.dotfiles` directory:
 
 ```bash
-stow -D git nvim ghostty-darwin
+# For each package, backup existing file/dir if needed, then:
+ln -sf ~/.dotfiles/<package>/.config/<package> ~/.config/<package>
+
+# Example for nvim:
+mv ~/.config/nvim ~/.config/nvim.bk
+ln -sf ~/.dotfiles/nvim/.config/nvim ~/.config/nvim
 ```
 
 ## Tracking Changes
 
-Stow uses symlinks, so edits to `~/.config/<package>` modify files directly in this repo. Periodically check for uncommitted changes:
+Edits to `~/.config/<package>` modify files directly in this repo. Periodically check for uncommitted changes:
 
 ```bash
 cd ~/.dotfiles
@@ -37,28 +56,53 @@ A helper alias:
 alias dotstatus='cd ~/.dotfiles && git status --short'
 ```
 
-Run `dotstatus` periodically to catch any config changes made on this machine or by automated processes.
-
-## Contents
-
-| Package | Description |
-|---------|-------------|
-| `git` | Git configuration |
-| `ghostty-darwin` | Ghostty terminal (macOS) |
-| `nvim` | LazyVim Neovim configuration |
-| `btop` | System monitor configuration |
-| `starship` | Starship prompt configuration |
-| `macos` | macOS system setup script |
-| `lsd` | LSD (ls replacement) configuration |
-| `ssh` | SSH config.d host configurations |
-| `opencode` | OpenCode configuration with skills |
+Run `dotstatus` periodically to catch any config changes.
 
 ## SSH Setup
 
-After stowing the `ssh` package, ensure `~/.ssh/config` includes:
+The `ssh` package requires manual setup due to system-specific config:
 
-```
-Include ~/.ssh/config.d/**/*.sshconfig
+1. Copy SSH configs:
+   ```bash
+   mkdir -p ~/.ssh/config.d
+   cp ~/.dotfiles/ssh/.ssh/config.d/*.sshconfig ~/.ssh/config.d/
+   cp -r ~/.dotfiles/ssh/.ssh/config.d/*/ ~/.ssh/config.d/
+   ```
+
+2. Ensure `~/.ssh/config` includes:
+   ```
+   Include ~/.ssh/config.d/*.sshconfig
+   Include ~/.ssh/config.d/bnna.d/*.sshconfig
+   ```
+
+   (This file is system-specific and not managed by this repo)
+
+3. Move existing config if needed:
+   ```bash
+   mv ~/.ssh/config ~/.ssh/config.bk
+   ```
+
+## macOS Setup
+
+Run the setup script for key repeat settings:
+
+```bash
+~/.dotfiles/macos/.local/bin/macos-setup
 ```
 
-This file is system-specific (may contain `Host *` blocks with local paths like the 1Password SSH agent) and is not managed by stow.
+Note: Restart system for key repeat changes to take effect.
+
+## Tool Installation Order
+
+If you need to install tools before setting up configs:
+
+1. `git` - webi or system
+2. `starship` - `curl -sS https://starship.rs/install.sh | sh`
+3. `lsd` - `webi lsd`
+4. `btop` - build from source or `brew install btop`
+5. `neovim` - download from GitHub releases
+6. `ghostty` - download from ghostty.org
+7. `opencode` - download from opencode.ai
+8. `aliasman` - `webi aliasman`
+
+See individual tool docs for installation methods.

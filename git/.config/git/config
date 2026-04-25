@@ -17,10 +17,6 @@
 [credential "https://gist.github.com"]
 	helper = 
 	helper = !/usr/bin/gh auth git-credential
-[url "ssh://git@example.com/"]
-	insteadOf = https://example.com/
-[url "ssh://git@github.com/"]
-	insteadOf = https://github.com/
 [push]
 	autoSetupRemote = true
 [rebase]
@@ -31,3 +27,5 @@
 	excludesfile = ~/.config/git/ignore
 [gpg]
 	format = ssh
+[credential]
+	helper = /Users/ryan/.local/bin/gh auth git-credential

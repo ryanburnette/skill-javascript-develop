@@ -1,0 +1,72 @@
+#!/bin/sh
+set -eu
+
+DOTFILES="$HOME/.dotfiles"
+BACKUP_MARKER=".bk"
+
+echo "Setting up dotfiles symlinks..."
+
+# Function to safely create symlink with backup
+link_dot() {
+    src="$1"
+    dst="$2"
+
+    # Check if source exists
+    if [ ! -e "$src" ]; then
+        echo "  SKIP: $src does not exist"
+        return
+    fi
+
+    # Check if destination already is correct symlink
+    if [ -L "$dst" ] && [ "$(readlink -f "$dst")" = "$(readlink -f "$src")" ]; then
+        echo "  OK: $dst -> $src (already correct)"
+        return
+    fi
+
+    # Backup existing file/directory
+    if [ -e "$dst" ]; then
+        backup="${dst}${BACKUP_MARKER}"
+        echo "  BACKUP: $dst -> $backup"
+        mv "$dst" "$backup"
+    fi
+
+    # Create parent directory if needed
+    dst_dir="$(dirname "$dst")"
+    if [ ! -d "$dst_dir" ]; then
+        echo "  MKDIR: $dst_dir"
+        mkdir -p "$dst_dir"
+    fi
+
+    # Create symlink
+    echo "  LINK: $dst -> $src"
+    ln -sf "$src" "$dst"
+}
+
+# Git config
+link_dot "$DOTFILES/git/.config/git" "$HOME/.config/git"
+
+# Ghostty (macOS only)
+if [ "$(uname)" = "Darwin" ]; then
+    link_dot "$DOTFILES/ghostty-darwin/.config/ghostty" "$HOME/.config/ghostty"
+fi
+
+# Neovim
+link_dot "$DOTFILES/nvim/.config/nvim" "$HOME/.config/nvim"
+
+# btop
+link_dot "$DOTFILES/btop/.config/btop" "$HOME/.config/btop"
+
+# starship (note: starship uses starship.toml not directory)
+link_dot "$DOTFILES/starship/.config/starship.toml" "$HOME/.config/starship.toml"
+
+# lsd
+link_dot "$DOTFILES/lsd/.config/lsd" "$HOME/.config/lsd"
+
+# opencode
+link_dot "$DOTFILES/opencode/.config/opencode" "$HOME/.config/opencode"
+
+echo ""
+echo "Done! Note:"
+echo "  - SSH config requires manual setup (see README.md)"
+echo "  - Run ~/.dotfiles/macos/.local/bin/macos-setup for macOS settings"
+echo "  - Restart your terminal for starship/fish changes to take effect"
