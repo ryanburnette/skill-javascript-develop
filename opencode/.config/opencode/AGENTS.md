@@ -23,7 +23,7 @@ Place critical action-specific rules in a "Before Actions" section at the top of
 
 **Before git operations:** Use `skill:git-workflow`. This repo has `bypass_private_pr: always`.
 
-**Before editing configs:** If changes are made to configs not managed by this repo, offer to add them as stow packages.
+**Before editing configs:** If changes are made to configs not managed by this repo, offer to add them as symlink packages.
 ```
 
 The section acts as a cache of essential rules with skill references, reducing the need to invoke skills for routine operations.

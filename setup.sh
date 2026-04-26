@@ -62,8 +62,19 @@ link_dot "$DOTFILES/starship/.config/starship.toml" "$HOME/.config/starship.toml
 # lsd
 link_dot "$DOTFILES/lsd/.config/lsd" "$HOME/.config/lsd"
 
-# opencode
-link_dot "$DOTFILES/opencode/.config/opencode" "$HOME/.config/opencode"
+# fish
+link_dot "$DOTFILES/fish/.config/fish" "$HOME/.config/fish"
+
+# SSH config.d files
+link_dot "$DOTFILES/ssh/.ssh/config.d/bnna.d" "$HOME/.ssh/config.d/bnna.d"
+link_dot "$DOTFILES/ssh/.ssh/config.d/bnna.sshconfig" "$HOME/.ssh/config.d/bnna.sshconfig"
+link_dot "$DOTFILES/ssh/.ssh/config.d/cogburnbros.sshconfig" "$HOME/.ssh/config.d/cogburnbros.sshconfig"
+link_dot "$DOTFILES/ssh/.ssh/config.d/ryanburnette.sshconfig" "$HOME/.ssh/config.d/ryanburnette.sshconfig"
+
+# opencode (partial - AGENTS.md and skills only, opencode.json has local settings)
+mkdir -p "$HOME/.config/opencode"
+link_dot "$DOTFILES/opencode/.config/opencode/AGENTS.md" "$HOME/.config/opencode/AGENTS.md"
+link_dot "$DOTFILES/opencode/.config/opencode/skills" "$HOME/.config/opencode/skills"
 
 echo ""
 echo "Done! Note:"

@@ -22,8 +22,9 @@ cd ~/.dotfiles
 | `btop` | `~/.config/btop` | System monitor configuration |
 | `starship` | `~/.config/starship.toml` | Starship prompt configuration |
 | `lsd` | `~/.config/lsd` | LSD (ls replacement) configuration |
+| `fish` | `~/.config/fish` | Fish shell configuration |
 | `ssh` | `~/.ssh/config.d` | SSH config.d host configurations |
-| `opencode` | `~/.config/opencode` | OpenCode configuration with skills |
+| `opencode` | `~/.config/opencode` | OpenCode (partial: AGENTS.md + skills symlinked) |
 
 ## Manual Setup
 
@@ -60,27 +61,14 @@ Run `dotstatus` periodically to catch any config changes.
 
 ## SSH Setup
 
-The `ssh` package requires manual setup due to system-specific config:
+The main `~/.ssh/config` file is system-specific and not managed by this repo. Ensure it includes:
 
-1. Copy SSH configs:
-   ```bash
-   mkdir -p ~/.ssh/config.d
-   cp ~/.dotfiles/ssh/.ssh/config.d/*.sshconfig ~/.ssh/config.d/
-   cp -r ~/.dotfiles/ssh/.ssh/config.d/*/ ~/.ssh/config.d/
-   ```
+```
+Include ~/.ssh/config.d/*.sshconfig
+Include ~/.ssh/config.d/bnna.d/*.sshconfig
+```
 
-2. Ensure `~/.ssh/config` includes:
-   ```
-   Include ~/.ssh/config.d/*.sshconfig
-   Include ~/.ssh/config.d/bnna.d/*.sshconfig
-   ```
-
-   (This file is system-specific and not managed by this repo)
-
-3. Move existing config if needed:
-   ```bash
-   mv ~/.ssh/config ~/.ssh/config.bk
-   ```
+The `setup.sh` symlinks the individual SSH config files from `ssh/.ssh/config.d/`.
 
 ## macOS Setup
 
