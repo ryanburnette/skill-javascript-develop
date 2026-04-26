@@ -415,16 +415,61 @@ This is simpler than mixins or composables for stateless transformations.
 - **Scoped `<style scoped>`** only when component-specific styles are unavoidable.
 - **Safelist** dynamic classes in `tailwind.config.js` if they're constructed at runtime.
 
+## Writing Vue Components
+
+These are the patterns that define how components are written. They're not incidental style -- they're deliberate choices that make code predictable and debuggable.
+
+### Loading Guards
+
+Every page starts with `loading: true` and wraps its content in `v-if="loading"` / `v-else`. One guard at the top of the template, not `v-if="record"` scattered throughout. This prevents rendering data that hasn't loaded yet.
+
+### Busy Flags for Actions
+
+Distinguish between initial load and action in progress. Use specific names:
+- `loading: true` -- initial page load, starts true
+- `saveBusy: false` -- form submission in progress
+- `deleteBusy: false` -- delete action in progress
+- `uploadBusy: false` -- file upload in progress
+
+Disable the corresponding button while busy. Set to true at the start, false after the action completes.
+
+### Async Methods
+
+Every async method wraps the body in try/catch and calls `vm.$root.unexpectedError(err)`. No bare `await` calls without error handling. No silent catches. Every failure surfaces to the user.
+
+### Event Handlers
+
+Call `if (ev) ev.preventDefault()` as the first line of event handlers. The `if (ev)` guard makes the method safe to call programmatically (without an event object).
+
+### Lifecycle Hooks
+
+- `created` -- only for bootstrapping that doesn't need the DOM (initial redirects, setting state from route params)
+- `mounted` -- data fetching. Always `async`. Always `await vm.$root.isReady()` before any API calls.
+
+### Method Naming
+
+- Data-fetching methods: verb + noun (`getRecords`, `getUser`, `getBidPeriods`)
+- Action methods: verb only when context is clear (`save`, `delete`), verb + noun otherwise (`deleteRecord`, `uploadFile`)
+- Utility imports: noun or verb directly (`formatDate`, `shortenStr`)
+
+### Utility Functions in Methods
+
+Import pure functions from `lib/` directly into the `methods` object. This makes them available in templates as `{{ formatDate(record.date) }}` without polluting `data` or `computed`.
+
+### Props
+
+Always use object syntax with type and default. Array and object defaults use the function form to avoid shared references between component instances.
+
+### Watch for Context Changes
+
+When a page depends on global context (selected period, workspace), watch `$root` and re-fetch. Guard with `if (!from) return` to skip initial trigger, and `if (to.id !== from.id)` to prevent no-op re-fetches.
+
+See `references/page-component-patterns.md` for full code examples of all these patterns.
+
 ## Page Component Pattern
 
-- `loading: true` starts true, set to `false` after data loads
-- `busy` flags for form submissions (`saveBusy`, `deleteBusy`)
-- `await vm.$root.isReady()` in `mounted` before any API calls
-- Try/catch with `vm.$root.unexpectedError(err)` for consistent error handling
-- Import pure utility functions directly into `methods`
 - Always wrap content in `<LayoutDefault>` with `<PageContentHeader>` and `<PageContent>`
-
-See `references/page-component-patterns.md` for the full template.
+- See `references/page-component-patterns.md` for the full template
 
 ## Pre-commit
 
@@ -435,15 +480,22 @@ npx prettier --check 'js/**/*.{js,vue}'
 
 ## Guardrails
 
+These are strong defaults, not absolute laws. You can deviate from any of them, but have a reason and discuss it first.
+
 - NEVER add Vuex/Pinia for 2-3 pieces of global state. Use root instance.
 - NEVER use route guards for auth. Handle at app level.
 - NEVER nest components directories. Flat `components/` folder.
 - NEVER use mixins. Use `lib/` for pure functions, root instance for shared state.
 - NEVER skip `await vm.$root.isReady()` before API calls in page components.
+- NEVER make an async API call without try/catch and `unexpectedError`.
+- NEVER skip `v-if="loading"` on page content that depends on fetched data.
+- NEVER use `v-if` scattered throughout a template when one loading guard at the top works.
 - ALWAYS use named routes for programmatic navigation.
 - ALWAYS include a 404 catch-all route.
 - ALWAYS put pure utility functions in `lib/`, not in component methods.
 - ALWAYS use shell scripts for build and dev commands.
+- ALWAYS use `if (ev) ev.preventDefault()` as first line of event handlers.
+- ALWAYS use specific busy flags (`saveBusy`, `deleteBusy`) instead of one generic `busy`.
 
 ## Future Considerations
 
@@ -456,7 +508,7 @@ These are migration paths for when the project is ready to evolve. Do not implem
 - `new Vue()` -> `createApp()`
 - `new VueRouter()` -> `createRouter()`
 - Options API -> Composition API with `<script setup>` (incremental, component by component)
-- `require()` + `module.exports` -> `import` + `export` (ESM everywhere)
+- The writing conventions in this skill are Options API. Composition API replaces `var vm = this` with reactive refs, `module.exports` with `export default`, and `data: function()` with `ref()`/`reactive()`. The patterns (loading guards, busy flags, async try/catch discipline, event handler conventions) transfer directly -- only the syntax changes.
 
 ### Webpack to Vite
 
