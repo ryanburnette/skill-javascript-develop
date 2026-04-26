@@ -8,19 +8,21 @@
 
 ## Symlink Workflow
 
-This repo uses direct symlinks to manage dotfiles. No stow or external tools needed.
+This repo uses direct symlinks to manage dotfiles.
 
 ### Adding a New Config
 
 To add a new package (e.g., `foo` config at `~/.config/foo`):
 
 1. Create directory structure in dotfiles:
+
    ```bash
    mkdir -p foo/.config/foo
    cp -r ~/.config/foo/* foo/.config/foo/
    ```
 
 2. Create symlink (setup.sh handles backups with `.bk` suffix):
+
    ```bash
    mv ~/.config/foo ~/.config/foo.bk
    ln -sf ~/.dotfiles/foo/.config/foo ~/.config/foo
@@ -87,4 +89,3 @@ When setting up a new machine, install tools in this order:
 - **lazy.nvim**: Requires working HTTPS git URLs. Set credential helper: `git config --global credential.helper "/path/to/gh auth git-credential"`
 - **starship**: Official install script is interactive; manually download tarball from GitHub releases if needed
 - **btop**: No macOS binaries provided; build from source or use brew
-- **stow**: Not worth the complexity - simple `ln -sf` works better for personal dotfiles
