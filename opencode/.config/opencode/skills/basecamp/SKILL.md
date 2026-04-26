@@ -951,3 +951,72 @@ basecamp people list --jq '[.data[] | {name: .name, email: .email_address}]'
 - API concepts: https://github.com/basecamp/bc3-api#key-concepts
 - CLI repo: https://github.com/basecamp/basecamp-cli
 - API coverage: See API-COVERAGE.md in the CLI repo
+
+## Repo Setup
+
+When creating a new repo for Basecamp project integration:
+
+### 1. Install and Authenticate
+
+```bash
+# Install (webi pattern)
+VER=0.7.2
+curl -fsSL -o /tmp/basecamp.tar.gz \
+  https://github.com/basecamp/basecamp-cli/releases/download/v${VER}/basecamp_${VER}_darwin_arm64.tar.gz
+mkdir -p ~/.local/opt/basecamp-v${VER}/bin
+tar -xzf /tmp/basecamp.tar.gz -C ~/.local/opt/basecamp-v${VER}/bin
+ln -sf ~/.local/opt/basecamp-v${VER}/bin/basecamp ~/.local/bin/basecamp
+rm /tmp/basecamp.tar.gz
+basecamp --version
+
+# Authenticate
+basecamp auth login --scope full
+basecamp auth status
+```
+
+### 2. Create Per-Repo Config
+
+```bash
+basecamp config init
+basecamp config set project_id <PROJECT_ID>
+basecamp config set account_id <ACCOUNT_ID>
+basecamp config trust
+```
+
+This creates `.basecamp/config.json`. Commit it to git.
+
+### 3. Write AGENTS.md
+
+Include:
+
+- **Project Context** — table of projects (ID, account, purpose). Source of truth for scope.
+- **Before Actions** — load basecamp skill, use strip-ai-tells for content
+- **Setup** — install location, auth command
+- **Commands** — command table for common operations
+- **Lessons** — project-specific lessons
+
+### 4. Verify
+
+```bash
+basecamp auth status
+basecamp projects list --md
+basecamp todolists list --md
+```
+
+### Repo Structure
+
+```
+project-repo/
+├── .basecamp/
+│   └── config.json     # project_id + account_id (committed)
+├── bin/                # scheduled scripts (run on container)
+├── .gitignore
+├── AGENTS.md           # project context and command reference
+└── opencode.json
+```
+
+## Lessons
+
+- Use official tools before building your own. basecamp-cli already provides full API coverage, agent skill, structured output, and auto token refresh.
+- Per-repo config (`.basecamp/config.json`) is a CLI convenience. Source of truth for project scope is AGENTS.md — use a Project Context table.
+- The CLI supports multiple projects via `--in <project_id>` and accounts via `--account <account_id>`.
