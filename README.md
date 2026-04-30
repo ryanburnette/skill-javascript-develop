@@ -25,6 +25,7 @@ cd ~/.dotfiles
 | `fish` | `~/.config/fish` | Fish shell configuration |
 | `ssh` | `~/.ssh/config.d` | SSH config.d host configurations |
 | `opencode` | `~/.config/opencode` | OpenCode (partial: AGENTS.md + skills symlinked) |
+| `claude` | `~/.claude/settings.json` | Claude Code (partial: settings.json only) |
 
 ## Manual Setup
 

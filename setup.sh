@@ -76,6 +76,9 @@ mkdir -p "$HOME/.config/opencode"
 link_dot "$DOTFILES/opencode/.config/opencode/AGENTS.md" "$HOME/.config/opencode/AGENTS.md"
 link_dot "$DOTFILES/opencode/.config/opencode/skills" "$HOME/.config/opencode/skills"
 
+# Claude Code (settings.json only - rest of ~/.claude/ is runtime data)
+link_dot "$DOTFILES/claude/.claude/settings.json" "$HOME/.claude/settings.json"
+
 echo ""
 echo "Done! Note:"
 echo "  - SSH config requires manual setup (see README.md)"
