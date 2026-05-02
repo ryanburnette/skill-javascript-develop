@@ -17,13 +17,13 @@ link_dot() {
         return
     fi
 
-    # Check if destination already is correct symlink
-    if [ -L "$dst" ] && [ "$(readlink -f "$dst")" = "$(readlink -f "$src")" ]; then
-        echo "  OK: $dst -> $src (already correct)"
-        return
+    # Remove existing symlink (never mv a symlink - it can point into the repo)
+    if [ -L "$dst" ]; then
+        echo "  REMOVE: $dst (stale symlink)"
+        rm "$dst"
     fi
 
-    # Backup existing file/directory
+    # Backup existing regular file/directory
     if [ -e "$dst" ]; then
         backup="${dst}${BACKUP_MARKER}"
         echo "  BACKUP: $dst -> $backup"
