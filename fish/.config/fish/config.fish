@@ -7,3 +7,6 @@ test -s "$HOME/.config/envman/load.fish"; and source "$HOME/.config/envman/load.
 
 command -q starship; and starship init fish | source
 
+
+# opencode
+fish_add_path /Users/ryan/.opencode/bin
