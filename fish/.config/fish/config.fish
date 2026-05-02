@@ -5,5 +5,5 @@ end
 # Generated for envman. Do not edit.
 test -s "$HOME/.config/envman/load.fish"; and source "$HOME/.config/envman/load.fish"
 
-/opt/homebrew/bin/starship init fish | source
+command -q starship; and starship init fish | source
 
