@@ -23,9 +23,14 @@ link_dot() {
         rm "$dst"
     fi
 
-    # Backup existing regular file/directory
+    # Backup existing regular file/directory (increment to avoid overwriting previous backups)
     if [ -e "$dst" ]; then
         backup="${dst}${BACKUP_MARKER}"
+        i=2
+        while [ -e "$backup" ]; do
+            backup="${dst}${BACKUP_MARKER}${i}"
+            i=$((i + 1))
+        done
         echo "  BACKUP: $dst -> $backup"
         mv "$dst" "$backup"
     fi
@@ -73,7 +78,6 @@ link_dot "$DOTFILES/ssh/.ssh/config.d/cogburnbros.sshconfig" "$HOME/.ssh/config.
 link_dot "$DOTFILES/ssh/.ssh/config.d/ryanburnette.sshconfig" "$HOME/.ssh/config.d/ryanburnette.sshconfig"
 
 # opencode (partial - AGENTS.md and skills only, opencode.json has local settings)
-mkdir -p "$HOME/.config/opencode"
 link_dot "$DOTFILES/opencode/.config/opencode/AGENTS.md" "$HOME/.config/opencode/AGENTS.md"
 link_dot "$DOTFILES/opencode/.config/opencode/skills" "$HOME/.config/opencode/skills"
 
