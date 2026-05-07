@@ -65,8 +65,9 @@ link_dot "$DOTFILES/lsd/.config/lsd" "$HOME/.config/lsd"
 # fish
 link_dot "$DOTFILES/fish/.config/fish" "$HOME/.config/fish"
 
-# SSH config.d files
-link_dot "$DOTFILES/ssh/.ssh/config.d/bnna.d" "$HOME/.ssh/config.d/bnna.d"
+# SSH config.d files (bnna.sshconfig now contains all per-host entries using sclient)
+# NOTE: The repo's ssh/.ssh/config is an EXAMPLE only. Never symlink ~/.ssh/config itself —
+# each machine maintains its own local ~/.ssh/config (which should Include config.d/*.sshconfig).
 link_dot "$DOTFILES/ssh/.ssh/config.d/bnna.sshconfig" "$HOME/.ssh/config.d/bnna.sshconfig"
 link_dot "$DOTFILES/ssh/.ssh/config.d/cogburnbros.sshconfig" "$HOME/.ssh/config.d/cogburnbros.sshconfig"
 link_dot "$DOTFILES/ssh/.ssh/config.d/ryanburnette.sshconfig" "$HOME/.ssh/config.d/ryanburnette.sshconfig"
