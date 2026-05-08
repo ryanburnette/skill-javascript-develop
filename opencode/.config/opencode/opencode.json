@@ -1,6 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "ollama/glm-5:cloud",
+  "model": "hf:zai-org/GLM-5.1",
   "permission": {
     "*": "allow",
     "external_directory": "ask"
