@@ -17,6 +17,20 @@ link_dot() {
         return
     fi
 
+    # Prevent circular symlinks: if the dst parent resolves into the dotfiles
+    # repo (via directory-level symlinks), creating another symlink would either
+    # be redundant or create a circular link inside the repo
+    dst_parent="$(dirname "$dst")"
+    if [ -d "$dst_parent" ] || [ -L "$dst_parent" ]; then
+        dst_real="$(cd "$dst_parent" 2>/dev/null && pwd -P)" || dst_real=""
+        case "$dst_real" in
+            "$DOTFILES" | "$DOTFILES"/*)
+                echo "  SKIP: $dst (parent already links into dotfiles repo)"
+                return
+                ;;
+        esac
+    fi
+
     # Remove existing symlink (never mv a symlink - it can point into the repo)
     if [ -L "$dst" ]; then
         echo "  REMOVE: $dst (stale symlink)"
