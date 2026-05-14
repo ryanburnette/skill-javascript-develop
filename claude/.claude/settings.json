@@ -1,3 +1,14 @@
 {
-  "theme": "dark"
+  "extraKnownMarketplaces": {
+    "37signals": {
+      "source": {
+        "source": "github",
+        "repo": "basecamp/claude-plugins"
+      }
+    }
+  },
+  "theme": "dark",
+  "enabledPlugins": {
+    "basecamp@37signals": true
+  }
 }
