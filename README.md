@@ -72,6 +72,8 @@ cp ~/.dotfiles/git/.config/git/config.local.example ~/.config/git/config.local
 
 Edit `config.local` to set the correct signing key path, credential helper, and allowed signers file for that machine. If a machine doesn't support SSH signing, set `gpgsign = false` in its `config.local`.
 
+Note: `credential.helper` does not expand `~/` — use the full absolute path (e.g. `/Users/you/.local/bin/gh auth git-credential`). The other settings (`signingkey`, `allowedSignersFile`) do support `~/` expansion.
+
 ## SSH Setup
 
 The main `~/.ssh/config` file is system-specific and not managed by this repo. Ensure it includes:
