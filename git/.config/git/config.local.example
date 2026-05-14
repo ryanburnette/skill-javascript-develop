@@ -3,6 +3,6 @@
 [user]
 	signingkey = ~/.ssh/id_ed25519.pub
 [credential]
-	helper = ~/.local/bin/gh auth git-credential
+	helper = /home/you/.local/bin/gh auth git-credential
 [gpg "ssh"]
 	allowedSignersFile = ~/.ssh/allowed_signers
