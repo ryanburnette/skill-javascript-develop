@@ -60,6 +60,18 @@ alias dotstatus='cd ~/.dotfiles && git status --short'
 
 Run `dotstatus` periodically to catch any config changes.
 
+## Git Setup
+
+The shared git config (`~/.config/git/config`) is symlinked from this repo. Machine-specific settings (signing key, credential helper, allowed signers) live in `~/.config/git/config.local`, which is gitignored.
+
+On each machine, copy the example and adjust:
+
+```bash
+cp ~/.dotfiles/git/.config/git/config.local.example ~/.config/git/config.local
+```
+
+Edit `config.local` to set the correct signing key path, credential helper, and allowed signers file for that machine. If a machine doesn't support SSH signing, set `gpgsign = false` in its `config.local`.
+
 ## SSH Setup
 
 The main `~/.ssh/config` file is system-specific and not managed by this repo. Ensure it includes:

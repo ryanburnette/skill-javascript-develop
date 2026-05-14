@@ -1,3 +1,6 @@
+[include]
+	path = config.local
+
 [alias]
 	co = checkout
 	br = branch
@@ -10,16 +13,13 @@
 [user]
 	name = Ryan Burnette
 	email = ryan.burnette@gmail.com
-	signingkey = ~/.ssh/id_ed25519
 [push]
 	autoSetupRemote = true
 [rebase]
 	autoStash = true
-[commit]
-	gpgsign = false
 [core]
 	excludesfile = ~/.config/git/ignore
 [gpg]
 	format = ssh
-[credential]
-	helper = /Users/ryan/.local/bin/gh auth git-credential
+[gpg "ssh"]
+	program = ssh-keygen
