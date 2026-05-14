@@ -1,2 +1,4 @@
 LOCAL.md
 git/.config/git/config.local
+opencode/.config/opencode/package-lock.json
+**/.claude/settings.local.json
