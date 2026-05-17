@@ -4,6 +4,8 @@
 
 **Before git operations:** Use `skill:git-workflow`. This repo has `bypass_private_pr: always` — direct commits to main are allowed.
 
+**Before diagnosing unverified commits:** Check `~/.config/git/config.local` exists and contains `commit.gpgsign = true`, `user.signingkey`, and `gpg.ssh.allowedSignersFile`. The shared Git config only sets SSH signing format; machine-local config enables signing.
+
 **Before editing configs:** If changes are made to configs not managed by this repo, offer to add them as symlinks.
 
 ## Symlink Workflow

@@ -64,6 +64,8 @@ Run `dotstatus` periodically to catch any config changes.
 
 The shared git config (`~/.config/git/config`) is symlinked from this repo. Machine-specific settings (signing key, credential helper, allowed signers) live in `~/.config/git/config.local`, which is gitignored.
 
+The shared config sets `gpg.format = ssh`, but it does not enable signing by itself. Each machine must have `config.local` with `commit.gpgsign = true` and a `user.signingkey` path, otherwise new commits will be unsigned and GitHub will not mark them as verified.
+
 On each machine, copy the example and adjust:
 
 ```bash
@@ -73,6 +75,28 @@ cp ~/.dotfiles/git/.config/git/config.local.example ~/.config/git/config.local
 Edit `config.local` to set the correct signing key path, credential helper, and allowed signers file for that machine. If a machine doesn't support SSH signing, set `gpgsign = false` in its `config.local`.
 
 Note: `credential.helper` does not expand `~/` — use the full absolute path (e.g. `/Users/you/.local/bin/gh auth git-credential`). The other settings (`signingkey`, `allowedSignersFile`) do support `~/` expansion.
+
+Verification checklist for new machines:
+
+```bash
+git config --show-origin --get-regexp '^(commit\.gpgsign|user\.signingkey|gpg\.format|gpg\.ssh\.allowedSignersFile|user\.email)'
+test -f ~/.ssh/allowed_signers
+ssh-keygen -lf ~/.ssh/id_ed25519.pub
+gh api user/ssh_signing_keys --jq '.[] | [.title, .key] | @tsv'
+```
+
+The local public key listed by `user.signingkey` must also be added to GitHub as an SSH signing key. If `gh api user/ssh_signing_keys` returns a scope error, run:
+
+```bash
+gh auth refresh -h github.com -s admin:ssh_signing_key
+```
+
+To test local signing without changing the branch, create and verify a temporary signed commit object:
+
+```bash
+commit=$(git commit-tree -S HEAD^{tree} -p HEAD -m 'test signing config')
+git verify-commit "$commit"
+```
 
 ## OpenCode Setup
 
