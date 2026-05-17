@@ -9,4 +9,4 @@ command -q starship; and starship init fish | source
 
 
 # opencode
-fish_add_path /Users/ryan/.opencode/bin
+fish_add_path "$HOME/.opencode/bin"

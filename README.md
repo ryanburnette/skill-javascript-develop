@@ -74,16 +74,25 @@ Edit `config.local` to set the correct signing key path, credential helper, and 
 
 Note: `credential.helper` does not expand `~/` — use the full absolute path (e.g. `/Users/you/.local/bin/gh auth git-credential`). The other settings (`signingkey`, `allowedSignersFile`) do support `~/` expansion.
 
+## OpenCode Setup
+
+The shared OpenCode instructions and skills are symlinked from this repo. The main `opencode.json` is local-only because it contains machine-specific model and provider choices.
+
+On each machine, copy the example and adjust:
+
+```bash
+cp ~/.dotfiles/opencode/.config/opencode/opencode.json.example ~/.config/opencode/opencode.json
+```
+
 ## SSH Setup
 
 The main `~/.ssh/config` file is system-specific and not managed by this repo. Ensure it includes:
 
 ```
 Include ~/.ssh/config.d/*.sshconfig
-Include ~/.ssh/config.d/bnna.d/*.sshconfig
 ```
 
-The `setup.sh` symlinks the individual SSH config files from `ssh/.ssh/config.d/`.
+The `setup.sh` symlinks the individual SSH config files from `ssh/.ssh/config.d/`. See `ssh/.ssh/config.example` for an example local `~/.ssh/config`, including machine-specific options like `IdentityAgent`.
 
 ## macOS Setup
 
@@ -100,12 +109,13 @@ Note: Restart system for key repeat changes to take effect.
 If you need to install tools before setting up configs:
 
 1. `git` - webi or system
-2. `starship` - `curl -sS https://starship.rs/install.sh | sh`
-3. `lsd` - `webi lsd`
-4. `btop` - build from source or `brew install btop`
-5. `neovim` - download from GitHub releases
-6. `ghostty` - download from ghostty.org
-7. `opencode` - download from opencode.ai
-8. `aliasman` - `webi aliasman`
+2. `gh` - `webi gh` for git credential helper
+3. `starship` - `curl -sS https://starship.rs/install.sh | sh`
+4. `lsd` - `webi lsd`
+5. `aliasman` - `webi aliasman`
+6. `neovim` - download from GitHub releases
+7. `btop` - build from source or `brew install btop`
+8. `ghostty` - download from ghostty.org
+9. `opencode` - download from opencode.ai
 
 See individual tool docs for installation methods.
