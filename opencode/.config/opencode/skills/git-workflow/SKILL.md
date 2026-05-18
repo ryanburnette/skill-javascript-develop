@@ -67,6 +67,10 @@ git diff --staged
 Do not use destructive commands such as `git reset --hard`, `git checkout --`,
 or deleting branches unless the user explicitly requests or approves them.
 
+Before rebasing, force pushing, merging, or deleting a branch, create a local
+backup branch at the current branch tip or PR head. A backup branch is cheap and
+keeps commits reachable if a later command rewrites or removes the visible ref.
+
 ## Create a New GitHub Repo
 
 Only create and push a new GitHub repo when the user explicitly asks.
@@ -128,6 +132,12 @@ Push only after user approval:
 ```sh
 git push -u origin feature/my-thing
 ```
+
+Draft PRs are fine to create at any point. The branch will continue to evolve
+with more commits and pushes. When the user asks to merge, follow the pre-merge
+checklist below. Preserve the branch tip before rebasing or merging so the work
+can be recovered if GitHub, a merge command, or branch cleanup behaves
+unexpectedly.
 
 Open a draft PR when the user asks for a PR workflow or approves publishing the
 branch:
@@ -203,6 +213,125 @@ create or update the PR, not merge it.
 to `main` require explicit user approval.
 
 **Never self-merge. Never use `--admin` to bypass branch protection.**
+
+### The safe way to merge a PR
+
+Always use `gh pr merge` -- never do local merges and push, and never disable
+branch protection to force a push to main.
+
+**Pre-merge checklist.** Run these steps in order before merging:
+
+1. **Inspect local and PR state.** Confirm the current branch, worktree, PR head,
+   and base before changing anything.
+
+   ```sh
+   git status
+   git branch --show-current
+   git remote -v
+   git log --oneline --decorate -10
+   gh pr view <number> --json number,title,state,isDraft,baseRefName,headRefName,headRepositoryOwner,headRefOid,mergeStateStatus
+   ```
+
+2. **Preserve the PR head.** Create a local backup branch pointing at the exact
+   PR head SHA before rebasing, refreshing, merging, or deleting anything.
+
+   ```sh
+   git fetch origin pull/<number>/head:backup/pr-<number>-<YYYYMMDD-HHMMSS>
+   git rev-parse backup/pr-<number>-<YYYYMMDD-HHMMSS>
+   git log --oneline --decorate -5 backup/pr-<number>-<YYYYMMDD-HHMMSS>
+   ```
+
+   Compare the backup branch SHA to `headRefOid` from `gh pr view`. Do not
+   delete this backup branch during the merge session.
+
+3. **Update the PR title.** Remove any "WIP" prefix. Use a semantic commit
+   message (e.g. `feat: ...`, `fix: ...`, `docs: ...`). The PR title becomes
+   the squash commit message.
+
+   ```sh
+   gh pr edit <number> --title "feat: descriptive summary"
+   ```
+
+4. **Update the PR body.** Make sure the description reflects the final state
+   of the work.
+
+5. **Mark the PR as ready.** If the PR is still a draft:
+
+   ```sh
+   gh pr ready <number>
+   ```
+
+6. **Verify GitHub sees the full diff.** A squash or rebase merge against the
+   wrong PR head can drop work from the merge result. Verify both the head SHA
+   and the diff GitHub will merge.
+
+   ```sh
+   gh pr view <number> --json headRefOid,commits,files
+   gh pr diff <number> --stat
+   ```
+
+   Compare the PR head SHA to the preserved backup branch and compare the file
+   count and line counts against what you expect. If the diff looks wrong or
+   incomplete, stop and diagnose. Do not merge a surprising diff.
+
+   If GitHub needs a new push to refresh the PR, ask before pushing. After
+   approval, prefer an empty commit on the PR branch over rewriting history:
+
+   ```sh
+   git commit --allow-empty -m "chore: refresh PR"
+   git push
+   # wait a moment, then verify again
+   gh pr diff <number> --stat
+   ```
+
+   Only proceed once the diff matches expectations.
+
+7. **Merge without deleting refs.** The merge strategy (squash vs rebase) is
+   project-specific. Check AGENTS.md or ask the user. Default to `--squash` if
+   unspecified.
+
+   ```sh
+   gh pr merge <number> --squash
+   # or
+   gh pr merge <number> --rebase
+   ```
+
+   Do not use `--delete-branch` in the merge command. Branch deletion is cleanup,
+   not part of merging.
+
+8. **Verify after merge.** Fetch main and verify the merge result before any
+   branch cleanup.
+
+   ```sh
+   git fetch origin main
+   git log --oneline --decorate -10 origin/main
+   gh pr view <number> --json state,mergedAt,mergeCommit
+   ```
+
+   For squash merges, compare the final tree from the preserved backup branch to
+   `origin/main`. If no other work landed on `main` during the merge, this diff
+   should be empty:
+
+   ```sh
+   git diff --stat backup/pr-<number>-<YYYYMMDD-HHMMSS> origin/main
+   ```
+
+   If other work landed at the same time, review the diff carefully instead of
+   assuming missing files are safe. For rebase merges, confirm the expected
+   commits or patch are present on `origin/main`.
+
+9. **Clean up only after verification.** Delete remote or local feature branches
+   only if the user asked for cleanup and the preserved backup branch is still
+   available. Never delete the backup branch in the same session that created it.
+
+If the user asks to merge and `gh pr merge` fails due to merge conflicts, resolve
+them by rebasing the feature branch onto main only after preserving the current
+PR head with a backup branch. Rebase rewrites history and any force push still
+requires explicit user confirmation.
+
+**Never disable branch protection.** The old pattern of toggling `enforce_admins`
+off/on around a direct push is a hack that breaks the PR workflow and leaves
+ghost PRs in draft state.
 
 ## Working with GitHub Issues
 
