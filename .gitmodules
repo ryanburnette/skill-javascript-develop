@@ -22,39 +22,18 @@
 [submodule "skills/.agents/skills/javascript-init"]
 	path = skills/.agents/skills/javascript-init
 	url = git@github.com:ryanburnette/skill-javascript-init.git
-[submodule "skills/.agents/skills/parse-cli-flags"]
-	path = skills/.agents/skills/parse-cli-flags
-	url = git@github.com:ryanburnette/skill-parse-cli-flags.git
 [submodule "skills/.agents/skills/repo-init"]
 	path = skills/.agents/skills/repo-init
 	url = git@github.com:ryanburnette/skill-repo-init.git
-[submodule "skills/.agents/skills/run-db-migrations"]
-	path = skills/.agents/skills/run-db-migrations
-	url = git@github.com:ryanburnette/skill-run-db-migrations.git
 [submodule "skills/.agents/skills/shell-scripting"]
 	path = skills/.agents/skills/shell-scripting
 	url = git@github.com:ryanburnette/skill-shell-scripting.git
-[submodule "skills/.agents/skills/sqlc-query-design"]
-	path = skills/.agents/skills/sqlc-query-design
-	url = git@github.com:ryanburnette/skill-sqlc-query-design.git
 [submodule "skills/.agents/skills/strip-ai-tells"]
 	path = skills/.agents/skills/strip-ai-tells
 	url = git@github.com:ryanburnette/skill-strip-ai-tells.git
-[submodule "skills/.agents/skills/use-go-modules"]
-	path = skills/.agents/skills/use-go-modules
-	url = git@github.com:ryanburnette/skill-use-go-modules.git
-[submodule "skills/.agents/skills/use-golib-auth"]
-	path = skills/.agents/skills/use-golib-auth
-	url = git@github.com:ryanburnette/skill-use-golib-auth.git
-[submodule "skills/.agents/skills/use-modern-go"]
-	path = skills/.agents/skills/use-modern-go
-	url = git@github.com:ryanburnette/skill-use-modern-go.git
 [submodule "skills/.agents/skills/vue-develop"]
 	path = skills/.agents/skills/vue-develop
 	url = git@github.com:ryanburnette/skill-vue-develop.git
-[submodule "skills/.agents/skills/write-http-handlers"]
-	path = skills/.agents/skills/write-http-handlers
-	url = git@github.com:ryanburnette/skill-write-http-handlers.git
 [submodule "skills/.agents/skills/write-modern-javascript"]
 	path = skills/.agents/skills/write-modern-javascript
 	url = git@github.com:ryanburnette/skill-write-modern-javascript.git

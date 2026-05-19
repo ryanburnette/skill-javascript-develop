@@ -6,11 +6,9 @@ Each skill is a `SKILL.md` in its own directory. Invoke via the `Skill` tool.
 |-------|-------------|
 | `create-skill` | Creating or updating a SKILL.md |
 | `git-workflow` | GitHub repo creation, branch protection, committing, PRs, merging |
-| `go-develop` | Go HTTP handlers, routes, middleware, migrations, data endpoints, CLI flags |
+| `go-develop` | Go development — HTTP servers, APIs, web apps, CLI tools, background workers. Includes modern syntax, sqlc, auth, and package stack |
 | `shell-scripting` | Writing or reviewing POSIX shell scripts |
-| `sqlc-query-design` | Writing, updating, or debugging sqlc-managed SQL queries in Go projects |
 | `strip-ai-tells` | Cleaning up AI-generated text, docs, commit messages, or markdown |
-| `use-modern-go` | Applying modern Go syntax guidelines for a project's Go version |
 | `write-modern-javascript` | Vanilla JS for browser UIs — no transpiler, no framework |
 
 
