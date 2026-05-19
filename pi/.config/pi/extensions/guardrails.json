@@ -11,6 +11,7 @@
     "pathAccess": true
   },
   "pathAccess": {
-    "mode": "ask"
+    "mode": "ask",
+    "allowedPaths": ["~/.agents/", "/dev/"]
   }
 }
