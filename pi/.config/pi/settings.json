@@ -1,0 +1,12 @@
+{
+  "lastChangelogVersion": "0.75.3",
+  "packages": [
+    "npm:@benvargas/pi-synthetic-provider",
+    "npm:@aliou/pi-guardrails",
+    "npm:pi-brave-search",
+    "git:github.com/visua1hue/pi-pane"
+  ],
+  "defaultProvider": "synthetic",
+  "defaultModel": "hf:zai-org/GLM-5.1",
+  "defaultThinkingLevel": "medium"
+}

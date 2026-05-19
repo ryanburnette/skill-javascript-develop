@@ -26,6 +26,7 @@ cd ~/.dotfiles
 | `ssh` | `~/.ssh/config.d` | SSH config.d host configurations |
 | `skills` | `~/.agents/skills` | Agent skills (git submodules, each skill is its own repo) |
 | `opencode` | `~/.config/opencode` | OpenCode (partial: AGENTS.md only, skills via `~/.agents/skills/`) |
+| `pi` | `~/.pi/agent` | Pi coding agent (settings.json + extensions; packages via `pi install`) |
 | `claude` | `~/.claude/settings.json` | Claude Code (partial: settings.json only) |
 
 ## Manual Setup
@@ -39,6 +40,24 @@ ln -sf ~/.dotfiles/<package>/.config/<package> ~/.config/<package>
 # Example for nvim:
 mv ~/.config/nvim ~/.config/nvim.bk
 ln -sf ~/.dotfiles/nvim/.config/nvim ~/.config/nvim
+```
+
+### Pi Packages
+
+After symlinking pi config, install the packages listed in `settings.json`:
+
+```bash
+pi install npm:@aliou/pi-guardrails
+pi install npm:pi-brave-search
+pi install git:github.com/visua1hue/pi-pane
+```
+
+Then run `/guardrails:onboarding` in pi to configure path-access and permission-gate preferences.
+
+Set the Brave Search API key in your shell config (e.g. `~/.config/envman/ENV.env`):
+
+```bash
+export BRAVE_API_KEY="your-key-here"
 ```
 
 ## Updating Skills
@@ -162,5 +181,6 @@ If you need to install tools before setting up configs:
 7. `btop` - build from source or `brew install btop`
 8. `ghostty` - download from ghostty.org
 9. `opencode` - download from opencode.ai
+10. `pi` - `npm install -g @earendil-works/pi-coding-agent`
 
 See individual tool docs for installation methods.

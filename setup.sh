@@ -104,8 +104,12 @@ link_dot "$g_dotfiles/opencode/.config/opencode/AGENTS.md" "$HOME/.config/openco
 # Claude Code (settings.json only - rest of ~/.claude/ is runtime data)
 link_dot "$g_dotfiles/claude/.claude/settings.json" "$HOME/.claude/settings.json"
 
+# Pi coding agent (settings.json + extensions; packages installed separately via pi install)
+link_dot "$g_dotfiles/pi/.config/pi" "$HOME/.pi/agent"
+
 echo ""
 echo "Done! Note:"
 echo "  - SSH config requires manual setup (see README.md)"
 echo "  - Run ~/.dotfiles/macos/.local/bin/macos-setup for macOS settings"
+echo "  - Install pi packages: pi install npm:@aliou/pi-guardrails && pi install npm:pi-brave-search && pi install git:github.com/visua1hue/pi-pane"
 echo "  - Restart your terminal for starship/fish changes to take effect"

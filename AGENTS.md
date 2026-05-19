@@ -103,6 +103,28 @@ git push
 
 **Important:** Periodically check `git status` for uncommitted changes made on other machines or by automated processes.
 
+### Pi Coding Agent
+
+`~/.pi/agent` is symlinked to `pi/.config/pi/` in this repo. Settings and extension configs are tracked; secrets and generated files are gitignored.
+
+**Pi packages** must be installed separately (not via symlinks) — they live in `~/.pi/agent/npm/` and `~/.pi/agent/git/`, which are gitignored:
+
+```bash
+pi install npm:@aliou/pi-guardrails
+pi install npm:pi-brave-search
+pi install git:github.com/visua1hue/pi-pane
+```
+
+After installing guardrails, run `/guardrails:onboarding` in pi.
+
+**Adding a new pi package:**
+
+1. Install: `pi install npm:<package>` or `pi install git:github.com/...`
+2. Commit the updated `pi/.config/pi/settings.json` (packages list is auto-updated).
+3. Add the install command to `setup.sh`, `README.md`, and this section.
+
+**Secrets:** `auth.json`, `models.json`, and `BRAVE_API_KEY` are machine-local and gitignored. Never commit API keys.
+
 ### Tool Installation Priority
 
 When setting up a new machine, install tools in this order:
@@ -115,6 +137,7 @@ When setting up a new machine, install tools in this order:
 6. **neovim** - download from GitHub releases (need full package: bin + lib + share)
 7. **btop** - build from source or `brew install btop`
 8. **ghostty** - download from ghostty.org (macOS)
+9. **pi** - `npm install -g @earendil-works/pi-coding-agent`
 
 ### Key Lessons Learned
 
