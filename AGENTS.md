@@ -12,6 +12,37 @@
 
 This repo uses direct symlinks to manage dotfiles.
 
+### Skills (Git Submodules)
+
+Skills live in `~/.agents/skills/` — each skill is a git submodule pointing to its own `ryanburnette/skill-<name>` private repo. Agent harnesses (pi, opencode, etc.) discover skills natively from `~/.agents/skills/`.
+
+**Adding a new skill:**
+
+1. Create the skill repo on GitHub (private):
+   ```bash
+   gh repo create ryanburnette/skill-<name> --private
+   ```
+2. Add as submodule:
+   ```bash
+   cd ~/.dotfiles
+   git submodule add git@github.com:ryanburnette/skill-<name>.git skills/.agents/skills/<name>
+   ```
+3. Update README.md and commit.
+
+**Updating a skill:**
+
+```bash
+cd ~/.dotfiles
+git submodule update --remote skills/.agents/skills/<name>
+git add skills/.agents/skills/<name>
+git commit -m "chore: update skill-<name>"
+git push
+```
+
+**New machine setup** — `setup.sh` runs `git submodule update --init --recursive` automatically.
+
+**Migration from old location:** Skills previously lived under `~/.config/opencode/skills/` (symlinked from `opencode/.config/opencode/skills/`). If `~/.config/opencode/skills` is a stale symlink pointing to a deleted directory, remove it and ensure `~/.agents/skills/` is symlinked instead. Running `./setup.sh` handles this automatically.
+
 ### Adding a New Config
 
 To add a new package (e.g., `foo` config at `~/.config/foo`):

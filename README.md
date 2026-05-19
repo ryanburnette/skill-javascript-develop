@@ -24,7 +24,8 @@ cd ~/.dotfiles
 | `lsd` | `~/.config/lsd` | LSD (ls replacement) configuration |
 | `fish` | `~/.config/fish` | Fish shell configuration |
 | `ssh` | `~/.ssh/config.d` | SSH config.d host configurations |
-| `opencode` | `~/.config/opencode` | OpenCode (partial: AGENTS.md + skills symlinked) |
+| `skills` | `~/.agents/skills` | Agent skills (git submodules, each skill is its own repo) |
+| `opencode` | `~/.config/opencode` | OpenCode (partial: AGENTS.md only, skills via `~/.agents/skills/`) |
 | `claude` | `~/.claude/settings.json` | Claude Code (partial: settings.json only) |
 
 ## Manual Setup
@@ -39,6 +40,26 @@ ln -sf ~/.dotfiles/<package>/.config/<package> ~/.config/<package>
 mv ~/.config/nvim ~/.config/nvim.bk
 ln -sf ~/.dotfiles/nvim/.config/nvim ~/.config/nvim
 ```
+
+## Updating Skills
+
+Skills are git submodules (each in its own `ryanburnette/skill-<name>` repo). To update a skill to its latest version:
+
+```bash
+cd ~/.dotfiles
+git submodule update --remote skills/.agents/skills/<name>
+git add skills/.agents/skills/<name>
+git commit -m "chore: update skill-<name>"
+```
+
+To add a new skill as a submodule:
+
+```bash
+cd ~/.dotfiles
+git submodule add git@github.com:ryanburnette/skill-<name>.git skills/.agents/skills/<name>
+```
+
+After cloning dotfiles on a new machine, run `./setup.sh` which handles `git submodule update --init --recursive` automatically.
 
 ## Tracking Changes
 
@@ -100,7 +121,7 @@ git verify-commit "$commit"
 
 ## OpenCode Setup
 
-The shared OpenCode instructions and skills are symlinked from this repo. The main `opencode.json` is local-only because it contains machine-specific model and provider choices.
+The shared OpenCode AGENTS.md is symlinked from this repo. Skills are in `~/.agents/skills/` (symlinked from `~/.dotfiles/skills/.agents/skills/`). The main `opencode.json` is local-only because it contains machine-specific model and provider choices.
 
 On each machine, copy the example and adjust:
 
