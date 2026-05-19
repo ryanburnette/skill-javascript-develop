@@ -9,3 +9,7 @@ sessions/
 npm/
 git/
 extensions/
+!.gitkeep
+
+# Prevent node_modules from ever leaking into context
+**/node_modules/
