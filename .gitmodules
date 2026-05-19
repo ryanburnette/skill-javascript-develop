@@ -1,39 +1,39 @@
-[submodule "skills/.agents/skills/agent-init"]
-	path = skills/.agents/skills/agent-init
+[submodule "agents/.agents/skills/agent-init"]
+	path = agents/.agents/skills/agent-init
 	url = git@github.com:ryanburnette/skill-agent-init.git
-[submodule "skills/.agents/skills/basecamp"]
-	path = skills/.agents/skills/basecamp
+[submodule "agents/.agents/skills/basecamp"]
+	path = agents/.agents/skills/basecamp
 	url = git@github.com:ryanburnette/skill-basecamp.git
-[submodule "skills/.agents/skills/create-skill"]
-	path = skills/.agents/skills/create-skill
+[submodule "agents/.agents/skills/create-skill"]
+	path = agents/.agents/skills/create-skill
 	url = git@github.com:ryanburnette/skill-create-skill.git
-[submodule "skills/.agents/skills/domainpanel"]
-	path = skills/.agents/skills/domainpanel
+[submodule "agents/.agents/skills/domainpanel"]
+	path = agents/.agents/skills/domainpanel
 	url = git@github.com:ryanburnette/skill-domainpanel.git
-[submodule "skills/.agents/skills/git-workflow"]
-	path = skills/.agents/skills/git-workflow
+[submodule "agents/.agents/skills/git-workflow"]
+	path = agents/.agents/skills/git-workflow
 	url = git@github.com:ryanburnette/skill-git-workflow.git
-[submodule "skills/.agents/skills/go-develop"]
-	path = skills/.agents/skills/go-develop
+[submodule "agents/.agents/skills/go-develop"]
+	path = agents/.agents/skills/go-develop
 	url = git@github.com:ryanburnette/skill-go-develop.git
-[submodule "skills/.agents/skills/import-sheet-data"]
-	path = skills/.agents/skills/import-sheet-data
+[submodule "agents/.agents/skills/import-sheet-data"]
+	path = agents/.agents/skills/import-sheet-data
 	url = git@github.com:ryanburnette/skill-import-sheet-data.git
-[submodule "skills/.agents/skills/javascript-init"]
-	path = skills/.agents/skills/javascript-init
+[submodule "agents/.agents/skills/javascript-init"]
+	path = agents/.agents/skills/javascript-init
 	url = git@github.com:ryanburnette/skill-javascript-init.git
-[submodule "skills/.agents/skills/repo-init"]
-	path = skills/.agents/skills/repo-init
+[submodule "agents/.agents/skills/repo-init"]
+	path = agents/.agents/skills/repo-init
 	url = git@github.com:ryanburnette/skill-repo-init.git
-[submodule "skills/.agents/skills/shell-scripting"]
-	path = skills/.agents/skills/shell-scripting
+[submodule "agents/.agents/skills/shell-scripting"]
+	path = agents/.agents/skills/shell-scripting
 	url = git@github.com:ryanburnette/skill-shell-scripting.git
-[submodule "skills/.agents/skills/strip-ai-tells"]
-	path = skills/.agents/skills/strip-ai-tells
+[submodule "agents/.agents/skills/strip-ai-tells"]
+	path = agents/.agents/skills/strip-ai-tells
 	url = git@github.com:ryanburnette/skill-strip-ai-tells.git
-[submodule "skills/.agents/skills/vue-develop"]
-	path = skills/.agents/skills/vue-develop
+[submodule "agents/.agents/skills/vue-develop"]
+	path = agents/.agents/skills/vue-develop
 	url = git@github.com:ryanburnette/skill-vue-develop.git
-[submodule "skills/.agents/skills/write-modern-javascript"]
-	path = skills/.agents/skills/write-modern-javascript
+[submodule "agents/.agents/skills/write-modern-javascript"]
+	path = agents/.agents/skills/write-modern-javascript
 	url = git@github.com:ryanburnette/skill-write-modern-javascript.git

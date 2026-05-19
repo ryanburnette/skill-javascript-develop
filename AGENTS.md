@@ -8,13 +8,21 @@
 
 **Before editing configs:** If changes are made to configs not managed by this repo, offer to add them as symlinks.
 
+## Don'ts
+
+- Don't edit `~/.config/git/config.local` — it's machine-local
+- Don't commit from inside a symlinked path — always `cd ~/.dotfiles` first
+- Don't commit `auth.json`, `models.json`, or API keys — they're machine-local and gitignored
+- Don't add a pi package without also updating `setup.sh` and `README.md`
+- Don't add or remove a skill without updating the skills table in `agents/.agents/AGENTS.md`
+
 ## Symlink Workflow
 
-This repo uses direct symlinks to manage dotfiles.
+This repo uses direct symlinks to manage dotfiles. See `README.md` for the full package list and manual setup commands.
 
 ### Skills (Git Submodules)
 
-Skills live in `~/.agents/skills/` — each skill is a git submodule pointing to its own `ryanburnette/skill-<name>` private repo. Agent harnesses (pi, opencode, etc.) discover skills natively from `~/.agents/skills/`.
+Skills live in `~/.agents/skills/` — each skill is a git submodule pointing to its own `ryanburnette/skill-<name>` private repo.
 
 **Adding a new skill:**
 
@@ -25,69 +33,38 @@ Skills live in `~/.agents/skills/` — each skill is a git submodule pointing to
 2. Add as submodule:
    ```bash
    cd ~/.dotfiles
-   git submodule add git@github.com:ryanburnette/skill-<name>.git skills/.agents/skills/<name>
+   git submodule add git@github.com:ryanburnette/skill-<name>.git agents/.agents/skills/<name>
    ```
-3. Update README.md and commit.
+3. Update the skills table in `agents/.agents/AGENTS.md` and commit.
 
 **Updating a skill:**
 
 ```bash
 cd ~/.dotfiles
-git submodule update --remote skills/.agents/skills/<name>
-git add skills/.agents/skills/<name>
+git submodule update --remote agents/.agents/skills/<name>
+git add agents/.agents/skills/<name>
 git commit -m "chore: update skill-<name>"
 git push
 ```
 
 **New machine setup** — `setup.sh` runs `git submodule update --init --recursive` automatically.
 
-**Migration from old location:** Skills previously lived under `~/.config/opencode/skills/` (symlinked from `opencode/.config/opencode/skills/`). If `~/.config/opencode/skills` is a stale symlink pointing to a deleted directory, remove it and ensure `~/.agents/skills/` is symlinked instead. Running `./setup.sh` handles this automatically.
-
 ### Adding a New Config
 
 To add a new package (e.g., `foo` config at `~/.config/foo`):
 
 1. Create directory structure in dotfiles:
-
    ```bash
    mkdir -p foo/.config/foo
    cp -r ~/.config/foo/* foo/.config/foo/
    ```
-
 2. Create symlink (setup.sh handles backups with `.bk` suffix):
-
    ```bash
    mv ~/.config/foo ~/.config/foo.bk
    ln -sf ~/.dotfiles/foo/.config/foo ~/.config/foo
    ```
-
-3. Update README.md:
-   - Add package to the table
-   - Add symlink command to manual setup section
-
-4. Commit and push:
-   ```bash
-   git add foo README.md
-   git commit -m "feat: add foo config"
-   git push
-   ```
-
-### Directory Structure
-
-Each package is a directory at the repo root containing the target structure:
-
-```
-~/.dotfiles/
-├── btop/
-│   └── .config/
-│       └── btop/
-├── git/
-│   └── .config/
-│       └── git/
-└── nvim/
-    └── .config/
-        └── nvim/
-```
+3. Update `setup.sh` and `README.md` (add package to table and manual setup section)
+4. Commit and push
 
 ### Tracking Changes
 
@@ -125,23 +102,9 @@ After installing guardrails, run `/guardrails:onboarding` in pi.
 
 **Secrets:** `auth.json`, `models.json`, and `BRAVE_API_KEY` are machine-local and gitignored. Never commit API keys.
 
-### Tool Installation Priority
-
-When setting up a new machine, install tools in this order:
-
-1. **git** - webi or system
-2. **gh** - `webi gh` (for git credential helper)
-3. **starship** - `curl -sS https://starship.rs/install.sh | sh`
-4. **lsd** - `webi lsd`
-5. **aliasman** - `webi aliasman`
-6. **neovim** - download from GitHub releases (need full package: bin + lib + share)
-7. **btop** - build from source or `brew install btop`
-8. **ghostty** - download from ghostty.org (macOS)
-9. **pi** - `npm install -g @earendil-works/pi-coding-agent`
-
 ### Key Lessons Learned
 
-- **neovim**: Don't just copy the binary - needs `lib/` and `share/` directories too. Official tarball structure: `bin/nvim`, `lib/nvim/`, `share/nvim/runtime/`
+- **neovim**: Don't just copy the binary — needs `lib/` and `share/` directories too. Official tarball structure: `bin/nvim`, `lib/nvim/`, `share/nvim/runtime/`
 - **lazy.nvim**: Requires working HTTPS git URLs. Set credential helper: `git config --global credential.helper "/path/to/gh auth git-credential"`
 - **starship**: Official install script is interactive; manually download tarball from GitHub releases if needed
 - **btop**: No macOS binaries provided; build from source or use brew

@@ -91,12 +91,13 @@ link_dot "$g_dotfiles/ssh/.ssh/config.d/bnna.sshconfig" "$HOME/.ssh/config.d/bnn
 link_dot "$g_dotfiles/ssh/.ssh/config.d/cogburnbros.sshconfig" "$HOME/.ssh/config.d/cogburnbros.sshconfig"
 link_dot "$g_dotfiles/ssh/.ssh/config.d/ryanburnette.sshconfig" "$HOME/.ssh/config.d/ryanburnette.sshconfig"
 
-# Agent skills (git submodules — each skill is its own repo)
-# Run submodule init if needed
+
+# Agent conventions and skills (submodules — each skill is its own repo)
 if test -f "$g_dotfiles/.gitmodules"; then
     git -C "$g_dotfiles" submodule update --init --recursive 2>/dev/null
 fi
-link_dot "$g_dotfiles/skills/.agents/skills" "$HOME/.agents/skills"
+link_dot "$g_dotfiles/agents/.agents/AGENTS.md" "$HOME/.agents/AGENTS.md"
+link_dot "$g_dotfiles/agents/.agents/skills" "$HOME/.agents/skills"
 
 # opencode (partial - AGENTS.md only, opencode.json has local settings, skills via ~/.agents/skills/)
 link_dot "$g_dotfiles/opencode/.config/opencode/AGENTS.md" "$HOME/.config/opencode/AGENTS.md"

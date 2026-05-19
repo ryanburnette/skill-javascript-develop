@@ -24,8 +24,8 @@ cd ~/.dotfiles
 | `lsd` | `~/.config/lsd` | LSD (ls replacement) configuration |
 | `fish` | `~/.config/fish` | Fish shell configuration |
 | `ssh` | `~/.ssh/config.d` | SSH config.d host configurations |
-| `skills` | `~/.agents/skills` | Agent skills (git submodules, each skill is its own repo) |
-| `opencode` | `~/.config/opencode` | OpenCode (partial: AGENTS.md only, skills via `~/.agents/skills/`) |
+| `agents` | `~/.agents/` | Agent conventions + skills (AGENTS.md and git submodules) |
+| `opencode` | `~/.config/opencode/AGENTS.md` | OpenCode (partial: AGENTS.md only, skills via `~/.agents/skills/`) |
 | `pi` | `~/.pi/agent` | Pi coding agent (settings.json + extensions; packages via `pi install`) |
 | `claude` | `~/.claude/settings.json` | Claude Code (partial: settings.json only) |
 
@@ -66,8 +66,8 @@ Skills are git submodules (each in its own `ryanburnette/skill-<name>` repo). To
 
 ```bash
 cd ~/.dotfiles
-git submodule update --remote skills/.agents/skills/<name>
-git add skills/.agents/skills/<name>
+git submodule update --remote agents/.agents/skills/<name>
+git add agents/.agents/skills/<name>
 git commit -m "chore: update skill-<name>"
 ```
 
@@ -75,7 +75,7 @@ To add a new skill as a submodule:
 
 ```bash
 cd ~/.dotfiles
-git submodule add git@github.com:ryanburnette/skill-<name>.git skills/.agents/skills/<name>
+git submodule add git@github.com:ryanburnette/skill-<name>.git agents/.agents/skills/<name>
 ```
 
 After cloning dotfiles on a new machine, run `./setup.sh` which handles `git submodule update --init --recursive` automatically.
@@ -138,9 +138,15 @@ commit=$(git commit-tree -S HEAD^{tree} -p HEAD -m 'test signing config')
 git verify-commit "$commit"
 ```
 
+## Agent Conventions
+
+`~/.agents/` is symlinked from `agents/.agents/` in this repo. It contains `AGENTS.md` (harness-agnostic conventions) and `skills/` (git submodules, each skill is its own repo).
+
+Each harness may also have its own AGENTS.md with harness-specific rules (e.g. `~/.config/opencode/AGENTS.md`).
+
 ## OpenCode Setup
 
-The shared OpenCode AGENTS.md is symlinked from this repo. Skills are in `~/.agents/skills/` (symlinked from `~/.dotfiles/skills/.agents/skills/`). The main `opencode.json` is local-only because it contains machine-specific model and provider choices.
+The OpenCode AGENTS.md is symlinked from this repo. Skills are in `~/.agents/skills/` (symlinked from `~/.dotfiles/agents/.agents/skills/`). The main `opencode.json` is local-only because it contains machine-specific model and provider choices.
 
 On each machine, copy the example and adjust:
 
