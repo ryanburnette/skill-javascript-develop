@@ -6,7 +6,7 @@
     "npm:pi-brave-search",
     "git:github.com/visua1hue/pi-pane",
     "git:https://github.com/hasit/pi-community-themes",
-    "npm:pi-markdown-preview"
+    "npm:pi-tool-display"
   ],
   "defaultProvider": "synthetic",
   "defaultModel": "hf:zai-org/GLM-5.1",
