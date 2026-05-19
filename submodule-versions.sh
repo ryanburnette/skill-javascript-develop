@@ -2,11 +2,11 @@
 set -eu
 
 # Check all submodule versions against remote main.
-# Usage: ./scripts/submodule-versions.sh
+# Usage: ./submodule-versions.sh
 
 g_dotfiles="$(
    CDPATH=
-   cd -- "$(dirname -- "$0")/.." && pwd -P
+   cd -- "$(dirname -- "$0")" && pwd -P
 )"
 
 # Print table header
