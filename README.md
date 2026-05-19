@@ -24,7 +24,7 @@ cd ~/.dotfiles
 | `lsd` | `~/.config/lsd` | LSD (ls replacement) configuration |
 | `fish` | `~/.config/fish` | Fish shell configuration |
 | `ssh` | `~/.ssh/config.d` | SSH config.d host configurations |
-| `agents` | `~/.agents/` | Agent conventions + skills (AGENTS.md and git submodules) |
+| `agents` | `~/.agents/` | Agent conventions + skills (`agents/.agents/` → `~/.agents/`; AGENTS.md, git submodules) |
 | `opencode` | `~/.config/opencode/AGENTS.md` | OpenCode (partial: AGENTS.md only, skills via `~/.agents/skills/`) |
 | `pi` | `~/.pi/agent` | Pi coding agent (settings.json + extensions; packages via `pi install`) |
 | `claude` | `~/.claude/settings.json` | Claude Code (partial: settings.json only) |
@@ -143,16 +143,6 @@ git verify-commit "$commit"
 `~/.agents/` is symlinked from `agents/.agents/` in this repo. It contains `AGENTS.md` (harness-agnostic conventions) and `skills/` (git submodules, each skill is its own repo).
 
 Each harness may also have its own AGENTS.md with harness-specific rules (e.g. `~/.config/opencode/AGENTS.md`).
-
-## OpenCode Setup
-
-The OpenCode AGENTS.md is symlinked from this repo. Skills are in `~/.agents/skills/` (symlinked from `~/.dotfiles/agents/.agents/skills/`). The main `opencode.json` is local-only because it contains machine-specific model and provider choices.
-
-On each machine, copy the example and adjust:
-
-```bash
-cp ~/.dotfiles/opencode/.config/opencode/opencode.json.example ~/.config/opencode/opencode.json
-```
 
 ## SSH Setup
 

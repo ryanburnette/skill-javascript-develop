@@ -20,35 +20,6 @@
 
 This repo uses direct symlinks to manage dotfiles. See `README.md` for the full package list and manual setup commands.
 
-### Skills (Git Submodules)
-
-Skills live in `~/.agents/skills/` — each skill is a git submodule pointing to its own `ryanburnette/skill-<name>` private repo.
-
-**Adding a new skill:**
-
-1. Create the skill repo on GitHub (private):
-   ```bash
-   gh repo create ryanburnette/skill-<name> --private
-   ```
-2. Add as submodule:
-   ```bash
-   cd ~/.dotfiles
-   git submodule add git@github.com:ryanburnette/skill-<name>.git agents/.agents/skills/<name>
-   ```
-3. Update the skills table in `agents/.agents/AGENTS.md` and commit.
-
-**Updating a skill:**
-
-```bash
-cd ~/.dotfiles
-git submodule update --remote agents/.agents/skills/<name>
-git add agents/.agents/skills/<name>
-git commit -m "chore: update skill-<name>"
-git push
-```
-
-**New machine setup** — `setup.sh` runs `git submodule update --init --recursive` automatically.
-
 ### Adding a New Config
 
 To add a new package (e.g., `foo` config at `~/.config/foo`):

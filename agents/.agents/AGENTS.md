@@ -22,20 +22,6 @@ Skills live in `~/.agents/skills/` — each skill is a `SKILL.md` in its own dir
 | `vue-develop` | Vue SPA front-end projects |
 | `write-modern-javascript` | Vanilla JS for browser UIs — no transpiler, no framework |
 
-## AGENTS.md Structure
-
-Place critical action-specific rules in a "Before Actions" section at the top of AGENTS.md. This ensures they're seen before taking action, not after. Example:
-
-```markdown
-## Before Actions
-
-**Before git operations:** Use `skill:git-workflow`. This repo has `bypass_private_pr: always`.
-
-**Before editing configs:** If changes are made to configs not managed by this repo, offer to add them as symlink packages.
-```
-
-The section acts as a cache of essential rules with skill references, reducing the need to invoke skills for routine operations.
-
 ## Session Start Sequence
 
 1. Read `AGENTS.md` (committed) — architecture, gotchas, pre-commit, skills to load
