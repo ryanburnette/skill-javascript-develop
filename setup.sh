@@ -105,6 +105,9 @@ link_dot "$g_dotfiles/opencode/.config/opencode/AGENTS.md" "$HOME/.config/openco
 # Claude Code (settings.json only - rest of ~/.claude/ is runtime data)
 link_dot "$g_dotfiles/claude/.claude/settings.json" "$HOME/.claude/settings.json"
 
+# proxmox-sh (LXC management; clone from https://github.com/therootcompany/proxmox-sh)
+link_dot "$g_dotfiles/proxmox-sh/.config/proxmox-sh" "$HOME/.config/proxmox-sh"
+
 # Pi coding agent (settings.json + extensions; packages installed separately via pi install)
 link_dot "$g_dotfiles/pi/.config/pi" "$HOME/.pi/agent"
 

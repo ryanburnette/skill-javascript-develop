@@ -27,6 +27,7 @@ cd ~/.dotfiles
 | `agents` | `~/.agents/` | Agent conventions + skills (`agents/.agents/` → `~/.agents/`; AGENTS.md, git submodules) |
 | `opencode` | `~/.config/opencode/AGENTS.md` | OpenCode (partial: AGENTS.md only, skills via `~/.agents/skills/`) |
 | `pi` | `~/.pi/agent` | Pi coding agent (settings.json + extensions; packages via `pi install`) |
+| `proxmox-sh` | `~/.config/proxmox-sh` | Proxmox LXC management (profile envs are machine-local) |
 | `claude` | `~/.claude/settings.json` | Claude Code (partial: settings.json only) |
 
 ## Manual Setup
@@ -138,6 +139,22 @@ commit=$(git commit-tree -S HEAD^{tree} -p HEAD -m 'test signing config')
 git verify-commit "$commit"
 ```
 
+## Proxmox-sh Setup
+
+1. Clone and add to PATH (per [proxmox-sh readme](https://github.com/therootcompany/proxmox-sh)):
+   ```bash
+   git clone https://github.com/therootcompany/proxmox-sh.git ~/.local/opt/proxmox-sh
+   echo 'export PATH="$HOME/.local/opt/proxmox-sh/bin:$PATH"' >> ~/.config/envman/PATH.env
+   ```
+2. Run `proxmox-sh-init` to create `~/.config/proxmox-sh/` (before or after symlink — init skips existing files)
+3. Copy a `.env.example` profile and fill in your secrets:
+   ```bash
+   cp ~/.config/proxmox-sh/ryan-slc1-prod-bnna.env.example ~/.config/proxmox-sh/ryan-slc1-prod-bnna.env
+   env-switch proxmox-sh ryan-slc1-prod-bnna
+   ```
+
+Profile env files (containing API tokens and secrets) are gitignored — only `*.env.example` files are tracked.
+
 ## Agent Conventions
 
 `~/.agents/` is symlinked from `agents/.agents/` in this repo. It contains `AGENTS.md` (harness-agnostic conventions) and `skills/` (git submodules, each skill is its own repo).
@@ -178,5 +195,6 @@ If you need to install tools before setting up configs:
 8. `ghostty` - download from ghostty.org
 9. `opencode` - download from opencode.ai
 10. `pi` - `npm install -g @earendil-works/pi-coding-agent`
+11. `proxmox-sh` - `git clone https://github.com/therootcompany/proxmox-sh.git ~/.local/opt/proxmox-sh`
 
 See individual tool docs for installation methods.

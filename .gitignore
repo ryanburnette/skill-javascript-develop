@@ -9,3 +9,7 @@ opencode/.config/opencode/opencode.json
 opencode/.config/opencode/package-lock.json
 **/.claude/settings.local.json
 TODO.md
+
+# proxmox-sh secrets
+proxmox-sh/.config/proxmox-sh/*.env
+!proxmox-sh/.config/proxmox-sh/*.env.example
