@@ -81,6 +81,8 @@ git submodule add git@github.com:ryanburnette/skill-<name>.git agents/.agents/sk
 
 After cloning dotfiles on a new machine, run `./setup.sh` which handles `git submodule update --init --recursive` automatically.
 
+To check if any skills are out of date, run `./submodule-versions.sh` — it compares each submodule against its remote `main` branch and prints a table.
+
 ## Tracking Changes
 
 Edits to `~/.config/<package>` modify files directly in this repo. Periodically check for uncommitted changes:
