@@ -184,3 +184,4 @@ See `references/npm-scripts.md` for the lint and build scripts.
 - ALWAYS run ESLint iteratively with `--fix` while working (no LSP)
 - ALWAYS run Prettier before committing
 - NEVER use LSP for JS linting — it wastes tokens
+- NEVER dig into `node_modules/` — it wastes context fast. Only read files in `node_modules` with a specific, justified reason and user approval.
