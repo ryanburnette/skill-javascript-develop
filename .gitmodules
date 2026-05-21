@@ -37,3 +37,6 @@
 [submodule "agents/.agents/skills/write-modern-javascript"]
 	path = agents/.agents/skills/write-modern-javascript
 	url = git@github.com:ryanburnette/skill-write-modern-javascript.git
+[submodule "agents/.agents/skills/python-develop"]
+	path = agents/.agents/skills/python-develop
+	url = git@github.com:ryanburnette/skill-python-develop.git
