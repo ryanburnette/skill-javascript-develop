@@ -1,13 +1,18 @@
 ---
 name: javascript-develop
-description: JavaScript development with ESLint, Prettier, and Docker. Use when writing Node.js scripts, Express APIs, or browser UIs. Never install Node packages on the host — always run npm/node in Docker.
+description: JavaScript development with ESLint, Prettier, and Docker. Use when writing project Node.js scripts, Express APIs, or browser UIs. Run project runtimes, packages, tests, and builds in Docker; installed agent tooling may run on the host.
 ---
 
 ## Core Rule
 
-Never install Node.js, npm, or any JavaScript packages on the host machine. All
-npm and node commands run inside Docker. No `brew install node`, no `npm install`
-on the host.
+Run project Node.js scripts, dependencies, tests, and builds inside Docker.
+Do not install project runtimes or packages on the host or create host
+`node_modules` for development.
+
+Existing agent and host tools, including their bundled Node helpers, may run
+on the host. Installing or updating such tooling is allowed only when requested
+or required by an authorized setup task, following that tool's instructions.
+This exception does not permit installing project dependencies on the host.
 
 ## Running JavaScript
 
@@ -176,8 +181,7 @@ See `references/npm-scripts.md` for the lint and build scripts.
 
 ## Guardrails
 
-- NEVER run `brew install node` or any host-level Node install
-- NEVER run `npm install` outside a container
+- Do not install project Node runtimes or packages on the host; the host-tooling exception above applies only to authorized agent/host tool maintenance
 - ALWAYS use `node:22-slim` or a project-specified image
 - ALWAYS pin dependency versions in package.json
 - ALWAYS use `--rm` for one-off containers to avoid accumulation
